@@ -1,0 +1,8 @@
+{
+  "name": "Remix 9월2222일   1차분양 반영",
+  "description": "전곡역 차량 5분, 한탄강 조망 29필지 전원주택지 토지분양 공식 웹사이트 및 현장방문 예약",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
