@@ -159,9 +159,9 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
       let serverData: any = null;
       const timestamp = Date.now();
 
-      // 1. Fetch from /api/data with strict no-cache headers & timestamp
+      // 1. Fetch from /.netlify/functions/api with strict no-cache headers & timestamp
       try {
-        const res = await fetch(`/api/data?t=${timestamp}`, {
+        const res = await fetch(`/.netlify/functions/api?t=${timestamp}`, {
           cache: 'no-store',
           headers: {
             'Cache-Control': 'no-cache, no-store, must-revalidate',
@@ -175,7 +175,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
           }
         }
       } catch (e) {
-        console.log('Primary /api/data fetch notice, trying static fallback', e);
+        console.log('Primary /.netlify/functions/api fetch notice, trying static fallback', e);
       }
 
       // 2. If not obtained, try static /server-data.json with timestamp
@@ -281,7 +281,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({
     if (!payload.updatedAt) {
       payload.updatedAt = updatedAt;
     }
-    fetch('/api/data', {
+    fetch('/.netlify/functions/api', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
