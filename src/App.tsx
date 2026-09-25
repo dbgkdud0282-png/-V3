@@ -16,6 +16,7 @@ import { AdminLoginModal } from './components/AdminLoginModal';
 import { Phone, ShieldCheck, Calendar } from 'lucide-react';
 
 declare function gtag(...args: any[]): void;
+declare function kakaoPixel(trackId: string): any;
 
 const WebsiteContent: React.FC = () => {
   const { isAdmin, setIsAdmin, config, openReservationModal, openPhoneConsultModal, isAdminLoginOpen, setIsAdminLoginOpen } = useApp();
@@ -40,6 +41,7 @@ const WebsiteContent: React.FC = () => {
       {/* Mobile Version Only: Slide Image Area from Overview Section right above Parcels Section */}
       <div id="mobile-photo-slider" className="block md:hidden w-full bg-[#0B0B0F]">
         <OverviewPhotoSlider />
+
         {/* 모바일 화면 전용: 현장 사진 Carousel/갤러리 바로 아래에 배치되는 입지 프리미엄 핵심 카드 4개 */}
         <div className="px-3.5 sm:px-6 py-5 bg-[#0B0B0F] border-b border-white/10">
           <TopLocationCards />
@@ -57,10 +59,10 @@ const WebsiteContent: React.FC = () => {
         <OverviewSection />
       </div>
 
-      {/* 5. Section 2: Location (Screenshot #5) */}
+      {/* 5. Section 2: Location */}
       <LocationSection />
 
-      {/* 6. Section 3: Special Values (Screenshot #6) */}
+      {/* 6. Section 3: Special Values */}
       <SpecialValuesSection />
 
       {/* 8. Section 6: Onsite Visit Reservation Form */}
@@ -72,7 +74,7 @@ const WebsiteContent: React.FC = () => {
       {/* 10. Floating Sticky Quick Action Buttons */}
       <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-3 sm:gap-3.5">
 
-        {/* Yellow Phone Call Button: PC는 전화 상담 모달 열기, 모바일은 바로 tel: 직통 연결 */}
+        {/* PC 전화 상담 버튼 */}
         <button
           id="floating-call-btn-pc"
           type="button"
@@ -83,13 +85,18 @@ const WebsiteContent: React.FC = () => {
           <span>{config.phone}</span>
         </button>
 
+        {/* 모바일 전화 직통 연결 버튼 */}
         <a
           id="floating-call-btn-mobile"
           href={`tel:${config.phone.replace(/[^0-9]/g, '')}`}
           onClick={() => {
+            // Google Ads 전화 전환
             gtag('event', 'conversion', {
               'send_to': 'AW-18267857134/IPrkCMnE-oQdEO7B5YZE'
             });
+
+            // Kakao 전화 상담 전환
+            kakaoPixel('956063720725496209').participation('Consulting');
           }}
           className="flex lg:hidden group items-center gap-2.5 px-6 py-3.5 sm:px-7 sm:py-4 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-base sm:text-lg lg:text-xl shadow-2xl shadow-amber-500/50 border-2 border-amber-300 transition-all duration-300 hover:scale-105"
         >
@@ -116,7 +123,7 @@ const WebsiteContent: React.FC = () => {
       <PhoneConsultModal />
 
       {/* Admin Login Modal */}
-      <AdminLoginModal 
+      <AdminLoginModal
         isOpen={isAdminLoginOpen}
         onClose={() => setIsAdminLoginOpen(false)}
         onLogin={() => setIsAdmin(true)}
