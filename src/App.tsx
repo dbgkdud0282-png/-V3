@@ -15,6 +15,8 @@ import { AdminDashboard } from './components/admin/AdminDashboard';
 import { AdminLoginModal } from './components/AdminLoginModal';
 import { Phone, ShieldCheck, Calendar } from 'lucide-react';
 
+declare function gtag(...args: any[]): void;
+
 const WebsiteContent: React.FC = () => {
   const { isAdmin, setIsAdmin, config, openReservationModal, openPhoneConsultModal, isAdminLoginOpen, setIsAdminLoginOpen } = useApp();
 
@@ -61,8 +63,6 @@ const WebsiteContent: React.FC = () => {
       {/* 6. Section 3: Special Values (Screenshot #6) */}
       <SpecialValuesSection />
 
-
-
       {/* 8. Section 6: Onsite Visit Reservation Form */}
       <ReservationSection />
 
@@ -71,6 +71,7 @@ const WebsiteContent: React.FC = () => {
 
       {/* 10. Floating Sticky Quick Action Buttons */}
       <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-3 sm:gap-3.5">
+
         {/* Yellow Phone Call Button: PC는 전화 상담 모달 열기, 모바일은 바로 tel: 직통 연결 */}
         <button
           id="floating-call-btn-pc"
@@ -85,6 +86,11 @@ const WebsiteContent: React.FC = () => {
         <a
           id="floating-call-btn-mobile"
           href={`tel:${config.phone.replace(/[^0-9]/g, '')}`}
+          onClick={() => {
+            gtag('event', 'conversion', {
+              'send_to': 'AW-18267857134/IPrkCMnE-oQdEO7B5YZE'
+            });
+          }}
           className="flex lg:hidden group items-center gap-2.5 px-6 py-3.5 sm:px-7 sm:py-4 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-base sm:text-lg lg:text-xl shadow-2xl shadow-amber-500/50 border-2 border-amber-300 transition-all duration-300 hover:scale-105"
         >
           <Phone className="w-6 h-6 sm:w-7 sm:h-7 text-slate-950 fill-current animate-bounce" />
