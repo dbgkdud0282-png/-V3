@@ -19,7 +19,15 @@ declare function gtag(...args: any[]): void;
 declare function kakaoPixel(trackId: string): any;
 
 const WebsiteContent: React.FC = () => {
-  const { isAdmin, setIsAdmin, config, openReservationModal, openPhoneConsultModal, isAdminLoginOpen, setIsAdminLoginOpen } = useApp();
+  const {
+    isAdmin,
+    setIsAdmin,
+    config,
+    openReservationModal,
+    openPhoneConsultModal,
+    isAdminLoginOpen,
+    setIsAdminLoginOpen
+  } = useApp();
 
   if (isAdmin) {
     return <AdminDashboard />;
@@ -39,7 +47,10 @@ const WebsiteContent: React.FC = () => {
       </div>
 
       {/* Mobile Version Only: Slide Image Area from Overview Section right above Parcels Section */}
-      <div id="mobile-photo-slider" className="block md:hidden w-full bg-[#0B0B0F]">
+      <div
+        id="mobile-photo-slider"
+        className="block md:hidden w-full bg-[#0B0B0F]"
+      >
         <OverviewPhotoSlider />
 
         {/* 모바일 화면 전용: 현장 사진 Carousel/갤러리 바로 아래에 배치되는 입지 프리미엄 핵심 카드 4개 */}
@@ -92,11 +103,11 @@ const WebsiteContent: React.FC = () => {
           onClick={() => {
             // Google Ads 전화 전환
             gtag('event', 'conversion', {
-              'send_to': 'AW-18267857134/IPrkCMnE-oQdEO7B5YZE'
+              send_to: 'AW-18267857134/IPrkCMnE-oQdEO7B5YZE'
             });
 
-            // Kakao 전화 상담 전환
-            kakaoPixel('956063720725496209').participation('Consulting');
+            // Kakao 잠재고객(전화 상담) 전환
+            kakaoPixel('956063720725496209').participation();
           }}
           className="flex lg:hidden group items-center gap-2.5 px-6 py-3.5 sm:px-7 sm:py-4 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-base sm:text-lg lg:text-xl shadow-2xl shadow-amber-500/50 border-2 border-amber-300 transition-all duration-300 hover:scale-105"
         >
